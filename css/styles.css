@@ -1,6 +1,11 @@
 body {
-    background-color: powderblue;
-    font: 14px cairo;
+  background-color:#c9fff8;
+  font: 14px "Cairo";
+}
+
+#title {
+  font: 16px "Cairo";
+  color: #8551EB;
 }
     
 .chart { fill: #004d98 }
