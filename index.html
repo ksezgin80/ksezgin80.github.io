@@ -1,11 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
+
+    <head>
+        <title>Changing Trend in Business and Leisure Travel</title>
+        <meta name="description" content="CS 498 - Data visualization - Assignment 7.3.3">
+        <meta name="keywords" content="HTML, CSS, XML, JavaScript, D3">
+        <meta name="author" content="Sezgin Kucukcoban">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
 
 <script src='https://d3js.org/d3.v5.min.js'></script>
 
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+
+<h1 id='header' color = #FFD700>Changing Trend in Business and Leisure Travel</h1>
+
+Percentage of ground transportation business expenses filed by Certify customers
+
+<div id="screens">
+    <button id="button" onclick="hideChart()"> About the visualization </button>
+    <button id="button" value=2014 onclick="showChart(this)"> 2014 </button>
+    <button id="button" value=2015 onclick="showChart(this)"> 2015 </button>
+    <button id="button" value=2016 onclick="showChart(this)"> 2016 </button>
+    <button id="button" value=2017 onclick="showChart(this)"> 2017 </button>
+    <button id="button" value=2018 onclick="showChart(this)"> 2018 </button>
+</div>
+
+
+
 
 <img src="images/test.jpg" alt="FCB" style="float:right;width:740px;height:auto;margin-right:45px;margin-top:20px;">
 

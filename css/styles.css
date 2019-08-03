@@ -1,0 +1,96 @@
+body {
+    background-color: powderblue;
+    font: 14px cairo;
+}
+    
+.chart { fill: #004d98 }
+    
+.chart:hover {fill: #a50044;}
+    
+.axis {
+	font: 12px sans-serif;
+}
+    
+.toolTip {
+    position: absolute;
+    display: none;
+    min-width: 30px;
+    height: auto;
+    background: #edbb00;
+    opacity: 0.94;
+    border: .5px solid #004d98;
+    padding: 4px;
+    text-align: center;
+    font: 12px sans-serif;
+}
+    
+#whatyear {
+  background-color: #edbb00;
+    border-style: solid;
+    border-width: 5px;
+  color: #fff;
+  font: 18px sans-serif;
+  text-decoration: none;
+  border: none;
+}
+    
+#annotation {
+  background-color: #edbb00;
+  border-style: solid;
+  border-width: 5px;
+  color: #fff;
+  font: 13px sans-serif;
+  text-decoration: none;
+  border: none;
+}
+    
+#button {
+  background-color: #edbb00;
+  padding: .7em;
+  border-radius: 20px;
+  color: black;
+  font: 13px sans-serif;
+  text-decoration: none;
+  border: none;
+}
+    
+#button:hover {
+  color: white;
+  border: none;
+  background: #A50044;
+}
+    
+#button:focus {
+  color: white;
+  border: none;
+  background: #A50044;
+}
+    
+#barChart{
+    pointer-events: all;        
+}
+    
+#scrollbar{
+    float: right
+}
+    
+#fcbimage{
+    display: none
+}
+    
+#desc{
+    margin-left: 40px;
+    margin-top: 20px;  
+}
+    
+h1{
+    color: #a50044;
+    ;
+}
+    
+#abtviz{
+    margin-top: -17px;
+    margin-left: 0px;
+    margin-right: 855px;
+    text-align: justify;
+}
