@@ -9,30 +9,188 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/styles.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cario">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cairo">
+        <script src="https://d3js.org/d3.v5.min.js"></script>
     </head>
 
-<script src='https://d3js.org/d3.v5.min.js'></script>
-
 <body>
+<h1 class="title"> Changing Trends in Business Travel </h1>
 
-<h1 id="header">Changing Trend in Business and Leisure Travel</h1>
+<div>
+    <img src="images/main.png" alt="Uber Taxi Lyft" style="width:300px;height:auto;">
+</div>
 
-Percentage of ground transportation business expenses filed by Certify customers
+<div>
+    Business travel constitutes one of the largest industries in the United States. There are several transportation modes available to business travelers. With the interaction of technology into transportation, dramatic changes have occurred in how people travel for their business trips. Over the last few years, ride-hailing has started to be the most preferred mode among business travelers while there has been a dramatic decrease in the use of rental cars and taxis. In this visualization, an interactive slideshow narrative structure has been used to go over this dramatic mode shift using the percentage of ground transportation business expenses filed by Certify customers from 2014 to 2018. Using the buttons provided below, you can navigate between the scenes and can learn more by hovering over the bars in the chart.
+</div>
 
-<div id="screens">
-    <button id="button" onclick="hideChart()"> About the visualization </button>
-    <button id="button" value=2014 onclick="showChart(this)"> 2014 </button>
-    <button id="button" value=2015 onclick="showChart(this)"> 2015 </button>
-    <button id="button" value=2016 onclick="showChart(this)"> 2016 </button>
-    <button id="button" value=2017 onclick="showChart(this)"> 2017 </button>
-    <button id="button" value=2018 onclick="showChart(this)"> 2018 </button>
+<div id="btn-group">
+    <button class="button" id="button" onclick="hideChart()"> Info </button>
+    <button class="button" id="button" value=2014 onclick="showChart(this)"> 2014 </button>
+    <button class="button" id="button" value=2015 onclick="showChart(this)"> 2015 </button>
+    <button class="button" id="button" value=2016 onclick="showChart(this)"> 2016 </button>
+    <button class="button" id="button" value=2017 onclick="showChart(this)"> 2017 </button>
+    <button class="button" id="button" value=2018 onclick="showChart(this)"> 2018 </button>
 </div>
 
 
 
+<div id="info" style="display: none">
+    <h4 style="margin-top:16px">Data:</h4>
+    <p id="info-note"> The Certify SpendSmart™ Report for Q1 2018 identifies the latest business travel and entertainment expense spending trends analyzing user transaction data collected from its cloud-based system. See <a href="https://www.certify.com/Certify-SpendSmart-Report-Story-Infographic-Q1-2018.aspx"> for details.</a></p>
+    
+    <h4 style="margin-top:16px">Scenes:</h4>
+    <p id="info-note">There is a total of 5 scenes excluding the information on the visualization. Each scene provides information about the percent share of ground transportation modes used in business trips. The scenes are organized chronologically to allow the user to observe trends in traveler choice of transportation mode.</p>
+    
+    <h4 style="margin-top:16px">Annotations:</h4>
+    <p id="info-note">The annotations are used to provide additional insights for the user. The annotations focus on important shifts in travel mode and allow user to gain an overall understanding of the scene before diving into the details with tooltips. The annotations are kept on the top-right corner of the chart and just the contents are replaced between scenes so that the user does not feel disoriented. The annotations do not change within the scene. The color scheme for the annotations follow light background and dark text based on the theme colors. The annotations display automatically for each scene and no action is required from the user.</p>
+    
+    <h4 style="margin-top:16px">Parameters:</h4>
+    <p id="info-note">The navigation buttons provided at the top left of the page help the user to navigate through scenes. Each button represents a year and clicking on each of these buttons will switch the year parameter, and the bar chart will change accordingly. Changes resulted from switching the year parameter include the height of bars that are displayed, the content of the annotation which provides additional insights for the user for that year. Buttons change the state of the page based on the year parameter.</p>
+    
+    <h4 style="margin-top:16px">Triggers:</h4>
+    <p id="info-note">User can click on the buttons at the top left of the page to switch between the scenes, and the way user can know about this feature is that the buttons will change their colors by hovering the mouse over them. The mouse icon will also turn into a hand shape to tip the user that these buttons are clickable. In each scene, user can also hover the mouse over the bars to see detailed information as tooltip. This information includes the real percentage of that travel mode in the corresponding year. At the end of the introduction section, the instructions are provided for the user to navigate through the scenes and to hover the mouse over the bars to see the tooltip.</p>
+</div>
 
-<img src="images/test.jpg" alt="FCB" style="float:right;width:740px;height:auto;margin-right:45px;margin-top:20px;">
 
+
+<svg width="600" height="400" id="barChart">
+    <text class="ann" id="annotation" x=200 y=30 height="100px" width="350px"  word-wrap="break-word"></text>
+</svg>
+
+<script>
+document.getElementById("barChart").style.display = "none";
+document.getElementById("annotation").style.display = "none";
+document.getElementById("info").style.display = "none";
+
+function hideChart() {
+    document.getElementById("barChart").style.display = "none";
+    document.getElementById("annotation").style.display = "none";
+    document.getElementById("info").style.display = "block";
+    
+    d3.select("svg").select("g").selectAll(".bar").data([]).exit().remove();
+    
+    d3.select("svg").select("text").attr("x", -1).attr("y", -1);
+}
+
+function showChart(year) {
+    document.getElementById("barChart").style.display = "block";
+    document.getElementById("annotation").style.display = "block";
+    document.getElementById("info").style.display = "none";
+    
+    // data definition
+    const items = [[2104,55,37,8],
+                   [2015,50,24,25], 
+                   [2016,40,14,46],
+                   [2017,31,10,59],
+                   [2018,23,6,71]]; 
+    const labels = ["Rental", "Taxi", "Ride-Hailing"]  
+    var ind = year.value - 2014;
+    var selYear = year.value;
+    var data = [items[ind][1], 
+                items[ind][2], 
+                items[ind][3]];
+
+    // svg margin and plot area
+    var svg = d3.select("svg"),
+        margin = {top: 40, right: 40, bottom: 60, left: 60},
+        width = +svg.attr("width") - margin.left - margin.right,
+        height = +svg.attr("height") - margin.top - margin.bottom;
+
+    // setup x and y axis
+    var xs = d3.scaleBand().domain(labels).range([0, width]);
+    var ys = d3.scaleLinear().domain([0,100]).range([height, 0]);
+
+    var g = svg.append("g")
+        .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+
+    // clear axis
+    d3.selectAll(".axis").remove();
+    d3.selectAll(".axisTitle").remove();
+
+    // x axis
+    g.append("g")
+        .attr("class","axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(xs));
+    // y axis
+    g.append("g")
+        .attr("class","axis")
+        .call(d3.axisLeft(ys).ticks(10));
+    // x axis title
+    g.append("g").append("text") 
+        .attr("class","axisTitle")        
+        .attr("transform","translate(" + (width / 2) + "," + (height + 0.75*margin.bottom) + ")")
+        .style("text-anchor","middle")
+        .style("font","red")
+        .text("Mode of Transportation");
+    // y axis title
+    g.append("g").append("text")
+        .attr("class", "axisTitle")
+        .attr("transform","translate("+ (0 - 0.75*margin.left) + "," + (height / 2) + ") rotate(-90)")
+        .style("text-anchor","middle")
+        .style("color","white")
+        .text("Ground Transportation Business Expenses (%)");
+
+    // tooltip
+    var tooltip = d3.select("body")
+        .append("div")
+        .attr("class", "toolTip");
+
+    d3.selectAll(".bar").remove();
+
+    // bars of the chart
+    g.selectAll(".bar")
+        .data(data)
+        .enter().append("rect")
+        .attr("class", "bar")
+        .on("mousemove", function(d,i){
+            tooltip.style("left", d3.event.pageX + 5 + "px")
+                .style("top", d3.event.pageY + 5 + "px")
+                .html(tooltipContent(d,i))
+                .style("display", "block");
+            })
+        .on("mouseout", function(d){
+            tooltip.style("display", "none");
+            })
+        .attr("x", function(d,i) { return xs(labels[i]) + 10; })
+        .attr("y", function(d,i) { return ys(d); })
+        .attr("width", xs.bandwidth()-20)
+        .attr("height", function(d) { return height - ys(d); }) ;
+
+    if (year.value == 2014) {
+        desctext = "Rental cars reached to their highest peak for business travel.";
+        }
+    else if (year.value == 2015) {
+        desctext = "The use of ride-hailing services has started to increase while the use of rental cars and taxis have decreased.";
+        }
+    else if (year.value == 2016) {
+        desctext = "The share of ride-hailing in business travel has exceeded the other two modes for the first time.";
+        }
+    else if (year.value == 2017) {
+        desctext = "Ride-hailing has continued to increase, governing almost 60% of ground transportation modes used in business travel.";
+        }
+    else if (year.value == 2018) {
+        //desctext = "The dramatic decrease in the use of rental cars and taxis have continued, reaching to only 29% of the market compared to 71% of ride-hailing use.";
+        desctext = "In 4 years, the use of rental cars and taxis have dropped down around 32% each, while ride-hailing has gone up 63%."
+        };
+
+    // extra info
+    var anno = d3.select("svg")
+        .selectAll(".ann")    
+    anno
+        .html(desctext)
+        .style("display", "block")
+        .attr("color","red");
+    
+}
+
+function tooltipContent(d,i) {
+    if (i == 0) {tmp = "Rental: " + d + "%";}
+    if (i == 1) {tmp = "Taxi: " + d + "%";}
+    if (i == 2) {tmp = "Ride-Hailing: " + d + "%";}
+    return tmp;
+}
+</script>
 </body>
 </html>
