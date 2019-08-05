@@ -46,12 +46,10 @@ body {
 }
 
 body > div {
-    border: 1px dashed red;
     margin: 20px;    
 }
 
 body > svg {
-  border: 1px dashed red;
   margin-left: 20px; 
 }
 
