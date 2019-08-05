@@ -61,6 +61,7 @@ body > svg {
 .axisTitle {
   font: 18px Cairo;
   color: #c5c6c7;
+  fill:#c5c6c7;
 }
 
 #barChart{
@@ -96,9 +97,4 @@ body > svg {
   font: 18px Cairo;
   border: none;
   word-wrap: break-word;
-}
-
-#desc{
-  margin-left: 40px;
-  margin-top: 20px;  
 }

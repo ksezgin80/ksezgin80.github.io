@@ -37,7 +37,7 @@
 
 <div id="info" style="display: none">
     <h4 style="margin-top:16px">Data:</h4>
-    <p id="info-note"> The Certify SpendSmart™ Report for Q1 2018 identifies the latest business travel and entertainment expense spending trends analyzing user transaction data collected from its cloud-based system. See <a href="https://www.certify.com/Certify-SpendSmart-Report-Story-Infographic-Q1-2018.aspx"> for details.</a></p>
+    <p id="info-note"> The Certify SpendSmart™ Report for Q1 2018 identifies the latest business travel and entertainment expense spending trends analyzing user transaction data collected from its cloud-based system. Click <a href="https://www.certify.com/Certify-SpendSmart-Report-Story-Infographic-Q1-2018.aspx">here</a> for details.</p>
     
     <h4 style="margin-top:16px">Scenes:</h4>
     <p id="info-note">There is a total of 5 scenes excluding the information on the visualization. Each scene provides information about the percent share of ground transportation modes used in business trips. The scenes are organized chronologically to allow the user to observe trends in traveler choice of transportation mode.</p>
@@ -52,10 +52,8 @@
     <p id="info-note">User can click on the buttons at the top left of the page to switch between the scenes, and the way user can know about this feature is that the buttons will change their colors by hovering the mouse over them. The mouse icon will also turn into a hand shape to tip the user that these buttons are clickable. In each scene, user can also hover the mouse over the bars to see detailed information as tooltip. This information includes the real percentage of that travel mode in the corresponding year. At the end of the introduction section, the instructions are provided for the user to navigate through the scenes and to hover the mouse over the bars to see the tooltip.</p>
 </div>
 
-
-
 <svg width="600" height="400" id="barChart">
-    <text class="ann" id="annotation" x=200 y=30 height="100px" width="350px"  word-wrap="break-word"></text>
+    <text class="ann" id="annotation" x="200" y="30" height="100px" width="350px"  word-wrap="break-word" fill=#a9a9a9></text>
 </svg>
 
 <script>
@@ -69,8 +67,6 @@ function hideChart() {
     document.getElementById("info").style.display = "block";
     
     d3.select("svg").select("g").selectAll(".bar").data([]).exit().remove();
-    
-    d3.select("svg").select("text").attr("x", -1).attr("y", -1);
 }
 
 function showChart(year) {
@@ -84,7 +80,7 @@ function showChart(year) {
                    [2016,40,14,46],
                    [2017,31,10,59],
                    [2018,23,6,71]]; 
-    const labels = ["Rental", "Taxi", "Ride-Hailing"]  
+    const labels = ["Rental Car", "Taxi", "Ride-Hailing"]  
     var ind = year.value - 2014;
     var selYear = year.value;
     var data = [items[ind][1], 
@@ -130,7 +126,7 @@ function showChart(year) {
         .attr("transform","translate("+ (0 - 0.75*margin.left) + "," + (height / 2) + ") rotate(-90)")
         .style("text-anchor","middle")
         .style("color","white")
-        .text("Ground Transportation Business Expenses (%)");
+        .text("Market Share (%)");
 
     // tooltip
     var tooltip = d3.select("body")
@@ -159,20 +155,28 @@ function showChart(year) {
         .attr("height", function(d) { return height - ys(d); }) ;
 
     if (year.value == 2014) {
-        desctext = "Rental cars reached to their highest peak for business travel.";
+        desctext = "Rental cars reached to their highest peak for" +
+                   '<tspan x="200" y="55">business travel.</tspan>';
         }
     else if (year.value == 2015) {
-        desctext = "The use of ride-hailing services has started to increase while the use of rental cars and taxis have decreased.";
+        desctext = "The use of ride-hailing services has started" +
+                   '<tspan x="200" y="55">to increase while the use of rental cars and</tspan>' +
+                   '<tspan x="200" y="80">taxis have decreased.</tspan>';
         }
     else if (year.value == 2016) {
-        desctext = "The share of ride-hailing in business travel has exceeded the other two modes for the first time.";
+        desctext = "The share of ride-hailing in business travel" +
+                   '<tspan x="200" y="55">has exceeded the other two modes for the first</tspan>' +
+                   '<tspan x="200" y="80">time.</tspan>';
         }
     else if (year.value == 2017) {
-        desctext = "Ride-hailing has continued to increase, governing almost 60% of ground transportation modes used in business travel.";
+        desctext = "Ride-hailing has continued to increase," +
+                   '<tspan x="200" y="55">governing almost 60% of ground transportation</tspan>' +
+                   '<tspan x="200" y="80">modes used in business travel.</tspan>';
         }
     else if (year.value == 2018) {
-        //desctext = "The dramatic decrease in the use of rental cars and taxis have continued, reaching to only 29% of the market compared to 71% of ride-hailing use.";
-        desctext = "In 4 years, the use of rental cars and taxis have dropped down around 32% each, while ride-hailing has gone up 63%."
+        desctext = "In four years, the use of rental cars and"+
+                   '<tspan x="200" y="55">taxis have dropped down by 32% each,</tspan>'+
+                   '<tspan x="200" y="80">while ride-hailing has gone up by 63%.</tspan>';
         };
 
     // extra info
