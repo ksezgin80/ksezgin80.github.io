@@ -2,7 +2,7 @@
 <html lang="en-US">
 
     <head>
-        <title>Changing Trend in Business and Leisure Travel</title>
+        <title>Changing Trends in Business and Leisure Travel</title>
         <meta name="description" content="CS 498 - Data visualization - Assignment 7.3.3">
         <meta name="keywords" content="HTML, CSS, XML, JavaScript, D3">
         <meta name="author" content="Sezgin Kucukcoban">
@@ -33,9 +33,11 @@
     <button class="button" id="button" value=2018 onclick="showChart(this)"> 2018 </button>
 </div>
 
-
-
 <div id="info" style="display: none">
+
+    <h4 style="margin-top:16px">About:</h4>
+    <p id="info-note"> CS498 - Data Visualization Assignment (sezgink2) [8/4/2019]</p>
+
     <h4 style="margin-top:16px">Data:</h4>
     <p id="info-note"> The Certify SpendSmart™ Report for Q1 2018 identifies the latest business travel and entertainment expense spending trends analyzing user transaction data collected from its cloud-based system. Click <a href="https://www.certify.com/Certify-SpendSmart-Report-Story-Infographic-Q1-2018.aspx">here</a> for details.</p>
     
@@ -186,7 +188,6 @@ function showChart(year) {
         .html(desctext)
         .style("display", "block")
         .attr("color","red");
-    
 }
 
 function tooltipContent(d,i) {
